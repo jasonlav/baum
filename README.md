@@ -1,9 +1,10 @@
-# Baum 2.0 <a href="https://travis-ci.org/gazsp/baum">
+# Baum 2.0.0 
+
 [![Build Status](https://travis-ci.org/gazsp/baum.svg?branch=2.0.0)](https://travis-ci.org/gazsp/baum)
 [![StyleCI](https://github.styleci.io/repos/47506280/shield?branch=2.0.0)](https://github.styleci.io/repos/47506280)
 [![Coverage Status](https://coveralls.io/repos/github/gazsp/baum/badge.svg?branch=2.0.0)](https://coveralls.io/github/gazsp/baum?branch=2.0.0)
 
-
+**THIS IS A DEVELOPMENT BUILD**
 
 ## Nested Set implementation for Laravel 5.5+
 
