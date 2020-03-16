@@ -2,8 +2,8 @@
 
 namespace Baum;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Baum\Exceptions\MoveNotPossibleException;
+use Illuminate\Contracts\Events\Dispatcher;
 
 /**
  * Move.
@@ -70,8 +70,8 @@ class Move
      */
     public function __construct($node, $target, $position)
     {
-        $this->node = $node;
-        $this->target = $this->resolveNode($target);
+        $this->node     = $node;
+        $this->target   = $this->resolveNode($target);
         $this->position = $position;
 
         $this->setEventDispatcher($node->getEventDispatcher());
@@ -139,19 +139,19 @@ class Move
         $this->applyLockBetween($a, $d);
 
         $connection = $this->node->getConnection();
-        $grammar = $connection->getQueryGrammar();
+        $grammar    = $connection->getQueryGrammar();
 
         $currentId = $this->quoteIdentifier($this->node->getKey());
-        $parentId = $this->quoteIdentifier($this->parentId());
+        $parentId  = $this->quoteIdentifier($this->parentId());
 
-        $leftColumn = $this->node->getLeftColumnName();
-        $rightColumn = $this->node->getRightColumnName();
+        $leftColumn   = $this->node->getLeftColumnName();
+        $rightColumn  = $this->node->getRightColumnName();
         $parentColumn = $this->node->getParentColumnName();
 
-        $wrappedLeft = $grammar->wrap($leftColumn);
-        $wrappedRight = $grammar->wrap($rightColumn);
+        $wrappedLeft   = $grammar->wrap($leftColumn);
+        $wrappedRight  = $grammar->wrap($rightColumn);
         $wrappedParent = $grammar->wrap($parentColumn);
-        $wrappedId = $grammar->wrap($this->node->getKeyName());
+        $wrappedId     = $grammar->wrap($this->node->getKeyName());
 
         $lftSql = "CASE
     WHEN $wrappedLeft BETWEEN $a AND $b THEN $wrappedLeft + $d - $b
@@ -192,6 +192,7 @@ class Move
      * to find the node in the database.
      *
      * @param   \Baum\node|int
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -211,7 +212,7 @@ class Move
      */
     protected function guardAgainstImpossibleMove()
     {
-        if (! $this->node->exists) {
+        if (!$this->node->exists) {
             throw new MoveNotPossibleException('A new node cannot be moved.');
         }
 
@@ -219,13 +220,12 @@ class Move
             throw new MoveNotPossibleException("Position should be one of ['child', 'left', 'right'] but is {$this->position}.");
         }
 
-        if (! $this->promotingToRoot()) {
+        if (!$this->promotingToRoot()) {
             if (is_null($this->target)) {
                 if ($this->position === 'left' || $this->position === 'right') {
                     throw new MoveNotPossibleException("Could not resolve target node. This node cannot move any further to the {$this->position}.");
-                } else {
-                    throw new MoveNotPossibleException('Could not resolve target node.');
                 }
+                throw new MoveNotPossibleException('Could not resolve target node.');
             }
 
             if ($this->node->equals($this->target)) {
@@ -236,7 +236,7 @@ class Move
                 throw new MoveNotPossibleException('A node cannot be moved to a descendant of itself (inside moved tree).');
             }
 
-            if (! $this->node->inSameScope($this->target)) {
+            if (!$this->node->inSameScope($this->target)) {
                 throw new MoveNotPossibleException('A node cannot be moved to a different scope.');
             }
         }
@@ -249,7 +249,7 @@ class Move
      */
     protected function bound1()
     {
-        if (! is_null($this->_bound1)) {
+        if (!is_null($this->_bound1)) {
             return $this->_bound1;
         }
 
@@ -284,7 +284,7 @@ class Move
      */
     protected function bound2()
     {
-        if (! is_null($this->_bound2)) {
+        if (!is_null($this->_bound2)) {
             return $this->_bound2;
         }
 
@@ -300,7 +300,7 @@ class Move
      */
     protected function boundaries()
     {
-        if (! is_null($this->_boundaries)) {
+        if (!is_null($this->_boundaries)) {
             return $this->_boundaries;
         }
 
@@ -327,10 +327,8 @@ class Move
         switch ($this->position) {
     case 'root':
       return;
-
     case 'child':
       return $this->target->getKey();
-
     default:
       return $this->target->getParentId();
     }
@@ -343,7 +341,7 @@ class Move
      */
     protected function hasChange()
     {
-        return ! ($this->bound1() == $this->node->getRight() || $this->bound1() == $this->node->getLeft());
+        return !($this->bound1() == $this->node->getRight() || $this->bound1() == $this->node->getLeft());
     }
 
     /**
@@ -388,13 +386,13 @@ class Move
      */
     protected function fireMoveEvent($event, $halt = true)
     {
-        if (! isset(static::$dispatcher)) {
+        if (!isset(static::$dispatcher)) {
             return true;
         }
 
         // Basically the same as \Illuminate\Database\Eloquent\Model->fireModelEvent
         // but we relay the event into the node instance.
-        $event = "eloquent.{$event}: ".get_class($this->node);
+        $event = "eloquent.{$event}: " . get_class($this->node);
 
         $method = $halt ? 'until' : (method_exists($this->getEventDispatcher(), 'fire') ? 'fire' : 'dispatch');
 

@@ -1,6 +1,5 @@
 <?php
 
-
 class CategoryMultiScopedTest extends BaumTestCase
 {
     public function setUp()
@@ -13,11 +12,11 @@ class CategoryMultiScopedTest extends BaumTestCase
 
     public function testInSameScope()
     {
-        $root1 = $this->categories('Root 1', 'ScopedCategory');
+        $root1  = $this->categories('Root 1', 'ScopedCategory');
         $child1 = $this->categories('Child 1', 'ScopedCategory');
         $child2 = $this->categories('Child 2', 'ScopedCategory');
 
-        $root2 = $this->categories('Root 2', 'ScopedCategory');
+        $root2  = $this->categories('Root 2', 'ScopedCategory');
         $child4 = $this->categories('Child 4', 'ScopedCategory');
         $child5 = $this->categories('Child 5', 'ScopedCategory');
 
@@ -70,10 +69,10 @@ class CategoryMultiScopedTest extends BaumTestCase
 
     public function testIsSelfOrAncestorOf()
     {
-        $root1 = $this->categories('Root 1', 'ScopedCategory');
+        $root1   = $this->categories('Root 1', 'ScopedCategory');
         $child21 = $this->categories('Child 2.1', 'ScopedCategory');
 
-        $root2 = $this->categories('Root 2', 'ScopedCategory');
+        $root2   = $this->categories('Root 2', 'ScopedCategory');
         $child51 = $this->categories('Child 5.1', 'ScopedCategory');
 
         $this->assertTrue($root1->isSelfOrAncestorOf($child21));
@@ -85,10 +84,10 @@ class CategoryMultiScopedTest extends BaumTestCase
 
     public function testIsSelfOrDescendantOf()
     {
-        $root1 = $this->categories('Root 1', 'ScopedCategory');
+        $root1   = $this->categories('Root 1', 'ScopedCategory');
         $child21 = $this->categories('Child 2.1', 'ScopedCategory');
 
-        $root2 = $this->categories('Root 2', 'ScopedCategory');
+        $root2   = $this->categories('Root 2', 'ScopedCategory');
         $child51 = $this->categories('Child 5.1', 'ScopedCategory');
 
         $this->assertTrue($child21->isSelfOrDescendantOf($root1));
@@ -214,7 +213,7 @@ class CategoryMultiScopedTest extends BaumTestCase
     public function testNodesCannotMoveBetweenScopes()
     {
         $child4 = $this->categories('Child 4', 'ScopedCategory');
-        $root1 = $this->categories('Root 1', 'ScopedCategory');
+        $root1  = $this->categories('Root 1', 'ScopedCategory');
 
         $child4->makeChildOf($root1);
     }
@@ -224,7 +223,7 @@ class CategoryMultiScopedTest extends BaumTestCase
      */
     public function testNodesCannotMoveBetweenScopesMultiple()
     {
-        $root1 = $this->categories('Root 1', 'MultiScopedCategory');
+        $root1  = $this->categories('Root 1', 'MultiScopedCategory');
         $child4 = $this->categories('Child 4', 'MultiScopedCategory');
 
         $child4->makeChildOf($root1);
@@ -235,7 +234,7 @@ class CategoryMultiScopedTest extends BaumTestCase
      */
     public function testNodesCannotMoveBetweenScopesMultiple2()
     {
-        $root1 = $this->categories('Racine 1', 'MultiScopedCategory');
+        $root1  = $this->categories('Racine 1', 'MultiScopedCategory');
         $child2 = $this->categories('Hijo 2', 'MultiScopedCategory');
 
         $child2->makeChildOf($root1);

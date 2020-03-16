@@ -36,6 +36,6 @@ class ModelGenerator extends Generator
      */
     protected function getPath($name, $path)
     {
-        return $path.'/'.$this->classify($name).'.php';
+        return $path . '/' . $this->classify($name) . '.php';
     }
 }

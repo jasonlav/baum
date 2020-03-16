@@ -80,7 +80,7 @@ class NodeModelExtensionsTest extends CategoryTestCase
         $node = Category::create(['name' => 'Some node']);
 
         $node->name = 'A better node';
-        $node->lft = 10;
+        $node->lft  = 10;
         $node->reload();
 
         $this->assertEquals($this->categories('Some node')->getAttributes(), $node->getAttributes());
@@ -120,8 +120,8 @@ class NodeModelExtensionsTest extends CategoryTestCase
     public function testNewNestedSetQueryUsesInternalBuilder()
     {
         $category = new Category();
-        $builder = $category->newNestedSetQuery();
-        $query = $builder->getQuery();
+        $builder  = $category->newNestedSetQuery();
+        $query    = $builder->getQuery();
 
         $this->assertInstanceOf('Baum\Extensions\Query\Builder', $query);
     }
@@ -129,8 +129,8 @@ class NodeModelExtensionsTest extends CategoryTestCase
     public function testNewNestedSetQueryIsOrderedByDefault()
     {
         $category = new Category();
-        $builder = $category->newNestedSetQuery();
-        $query = $builder->getQuery();
+        $builder  = $category->newNestedSetQuery();
+        $query    = $builder->getQuery();
 
         $this->assertEmpty($query->wheres);
         $this->assertNotEmpty($query->orders);
@@ -142,8 +142,8 @@ class NodeModelExtensionsTest extends CategoryTestCase
     public function testNewNestedSetQueryIsOrderedByCustom()
     {
         $category = new OrderedCategory();
-        $builder = $category->newNestedSetQuery();
-        $query = $builder->getQuery();
+        $builder  = $category->newNestedSetQuery();
+        $query    = $builder->getQuery();
 
         $this->assertEmpty($query->wheres);
         $this->assertNotEmpty($query->orders);
@@ -154,19 +154,19 @@ class NodeModelExtensionsTest extends CategoryTestCase
 
     public function testNewNestedSetQueryIncludesScopedColumns()
     {
-        $category = new Category();
+        $category    = new Category();
         $simpleQuery = $category->newNestedSetQuery()->getQuery();
         $this->assertEmpty($simpleQuery->wheres);
 
         $scopedCategory = new ScopedCategory();
-        $scopedQuery = $scopedCategory->newNestedSetQuery()->getQuery();
+        $scopedQuery    = $scopedCategory->newNestedSetQuery()->getQuery();
         $this->assertCount(1, $scopedQuery->wheres);
         $this->assertEquals($scopedCategory->getScopedColumns(), array_map(function ($elem) {
             return $elem['column'];
         }, $scopedQuery->wheres));
 
         $multiScopedCategory = new MultiScopedCategory();
-        $multiScopedQuery = $multiScopedCategory->newNestedSetQuery()->getQuery();
+        $multiScopedQuery    = $multiScopedCategory->newNestedSetQuery()->getQuery();
         $this->assertCount(2, $multiScopedQuery->wheres);
         $this->assertEquals($multiScopedCategory->getScopedColumns(), array_map(function ($elem) {
             return $elem['column'];

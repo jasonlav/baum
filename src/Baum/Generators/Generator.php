@@ -32,7 +32,7 @@ abstract class Generator
      */
     public function getStubPath()
     {
-        return __DIR__.'/stubs';
+        return __DIR__ . '/stubs';
     }
 
     /**
@@ -49,16 +49,17 @@ abstract class Generator
      * Get the given stub by name.
      *
      * @param string $table
+     * @param mixed  $name
      *
      * @return void
      */
     protected function getStub($name)
     {
         if (stripos($name, '.php.stub') === false) {
-            $name = $name.'.php.stub';
+            $name = $name . '.php.stub';
         }
 
-        return $this->files->get($this->getStubPath().'/'.$name);
+        return $this->files->get($this->getStubPath() . '/' . $name);
     }
 
     /**
@@ -74,7 +75,7 @@ abstract class Generator
         $output = $stub;
 
         foreach ($replacements as $key => $replacement) {
-            $search = '{{'.$key.'}}';
+            $search = '{{' . $key . '}}';
             $output = str_replace($search, $replacement, $output);
         }
 

@@ -24,9 +24,9 @@ class CategoryTreeMapperTest extends CategoryTestCase
 
         // Postgres fix
         if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 10');
+            $tablePrefix  = DB::connection()->getTablePrefix();
+            $sequenceName = $tablePrefix . 'categories_id_seq';
+            DB::connection()->statement('ALTER SEQUENCE ' . $sequenceName . ' RESTART WITH 10');
         }
 
         $updated = [

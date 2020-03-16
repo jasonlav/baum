@@ -2,9 +2,9 @@
 
 namespace Baum\Console;
 
-use Illuminate\Console\Command;
-use Baum\Generators\ModelGenerator;
 use Baum\Generators\MigrationGenerator;
+use Baum\Generators\ModelGenerator;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 class InstallCommand extends Command
@@ -41,7 +41,7 @@ class InstallCommand extends Command
      * Create a new command instance.
      *
      * @param \Baum\Generators\MigrationGenerator $migrator
-     * @param \Baum\Generators\ModelGenerator $modeler
+     * @param \Baum\Generators\ModelGenerator     $modeler
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class InstallCommand extends Command
         parent::__construct();
 
         $this->migrator = $migrator;
-        $this->modeler = $modeler;
+        $this->modeler  = $modeler;
     }
 
     /**

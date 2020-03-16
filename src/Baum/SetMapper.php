@@ -25,6 +25,7 @@ class SetMapper
      * Create a new \Baum\SetBuilder class instance.
      *
      * @param \Baum\Node $node
+     * @param mixed      $childrenKeyName
      *
      * @return void
      */
@@ -39,6 +40,7 @@ class SetMapper
      * Maps a tree structure into the database. Unguards & wraps in transaction.
      *
      * @param   array|\Illuminate\Support\Contracts\ArrayableInterface
+     * @param mixed $nodeList
      *
      * @return bool
      */
@@ -60,13 +62,14 @@ class SetMapper
      * inside a transaction.
      *
      * @param   array|\Illuminate\Support\Contracts\ArrayableInterface
+     * @param mixed $nodeList
      *
      * @return bool
      */
     public function mapTree($nodeList)
     {
         $affectedKeys = [];
-        $tree = $nodeList instanceof ArrayableInterface ? $nodeList->toArray() : $nodeList;
+        $tree         = $nodeList instanceof ArrayableInterface ? $nodeList->toArray() : $nodeList;
 
         $result = $this->mapTreeRecursive($tree, $this->node, $affectedKeys);
 
@@ -92,6 +95,7 @@ class SetMapper
      *
      * @param array $tree
      * @param mixed $parent
+     * @param mixed $affectedKeys
      *
      * @return bool
      */
@@ -114,11 +118,11 @@ class SetMapper
             }
             $node->fill($data);
 
-            if (! $node->save()) {
+            if (!$node->save()) {
                 throw new \Exception('Unable to save node');
             }
 
-            if (! $node->isRoot()) {
+            if (!$node->isRoot()) {
                 $node->makeLastChildOf($node->parent);
             }
 

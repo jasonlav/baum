@@ -4,7 +4,7 @@ class OrderedClusterHeirarchyTestCase extends OrderedClusterTestCase
 {
     public function testAllStaticWithCustomOrder()
     {
-        $results = OrderedCluster::all();
+        $results  = OrderedCluster::all();
         $expected = OrderedCluster::query()->orderBy('name')->get();
 
         $this->assertEquals($results, $expected);
