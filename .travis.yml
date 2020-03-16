@@ -5,9 +5,9 @@ php:
   #- 5.6 # Version 5.6.40 | End of Life: 10 Jan 2019
   # - 7.0 # Version 7.0.33 | End of Life: 10 Jan 2019
   #- 7.1
-  #- 7.2
+  - 7.2
   #- 7.3
-  - hhvm
+  #- hhvm
 
 env:
   #- ILLUMINATE=5.2.*
@@ -16,9 +16,9 @@ env:
   #- ILLUMINATE=5.5.*
   #- ILLUMINATE=5.6.*
   #- ILLUMINATE=5.7.*
-  #- ILLUMINATE=5.8.*
+  - ILLUMINATE=5.8.*
   #- ILLUMINATE=5.4.*
-  - ILLUMINATE=dev-master
+  #- ILLUMINATE=dev-master
   
 
 before_install:
@@ -34,9 +34,9 @@ matrix:
 #  exclude:
 #    - php: 5.6
 #      env: ILLUMINATE=5.4.*
-  allow_failures:
-    - php: hhvm
-      env: ILLUMINATE=dev-master
+#  allow_failures:
+#    - php: hhvm
+#      env: ILLUMINATE=dev-master
       
 before_script:
   - travis_retry composer self-update
