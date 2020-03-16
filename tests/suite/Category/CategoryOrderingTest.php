@@ -4,7 +4,7 @@ class CategoryOrderingTest extends OrderedCategoryTestCase
 {
     public function testAllStaticWithCustomOrder()
     {
-        $results = OrderedCategory::all();
+        $results  = OrderedCategory::all();
         $expected = OrderedCategory::query()->orderBy('name')->get();
 
         $this->assertEquals($results, $expected);

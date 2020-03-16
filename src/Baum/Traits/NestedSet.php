@@ -11,7 +11,8 @@ use Baum\SetValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-trait NestedSet {
+trait NestedSet
+{
     /**
      * Column name to store the reference to parent's node.
      *
@@ -157,7 +158,7 @@ trait NestedSet {
      */
     public function getQualifiedParentColumnName()
     {
-        return $this->getTable().'.'.$this->getParentColumnName();
+        return $this->getTable() . '.' . $this->getParentColumnName();
     }
 
     /**
@@ -187,7 +188,7 @@ trait NestedSet {
      */
     public function getQualifiedLeftColumnName()
     {
-        return $this->getTable().'.'.$this->getLeftColumnName();
+        return $this->getTable() . '.' . $this->getLeftColumnName();
     }
 
     /**
@@ -217,7 +218,7 @@ trait NestedSet {
      */
     public function getQualifiedRightColumnName()
     {
-        return $this->getTable().'.'.$this->getRightColumnName();
+        return $this->getTable() . '.' . $this->getRightColumnName();
     }
 
     /**
@@ -247,7 +248,7 @@ trait NestedSet {
      */
     public function getQualifiedDepthColumnName()
     {
-        return $this->getTable().'.'.$this->getDepthColumnName();
+        return $this->getTable() . '.' . $this->getDepthColumnName();
     }
 
     /**
@@ -277,7 +278,7 @@ trait NestedSet {
      */
     public function getQualifiedOrderColumnName()
     {
-        return $this->getTable().'.'.$this->getOrderColumnName();
+        return $this->getTable() . '.' . $this->getOrderColumnName();
     }
 
     /**
@@ -307,14 +308,14 @@ trait NestedSet {
      */
     public function getQualifiedScopedColumns()
     {
-        if (! $this->isScoped()) {
+        if (!$this->isScoped()) {
             return $this->getScopedColumns();
         }
 
-        $prefix = $this->getTable().'.';
+        $prefix = $this->getTable() . '.';
 
         return array_map(function ($c) use ($prefix) {
-            return $prefix.$c;
+            return $prefix . $c;
         }, $this->getScopedColumns());
     }
 
@@ -436,7 +437,7 @@ trait NestedSet {
         $lftCol = $grammar->wrap($instance->getQualifiedLeftColumnName());
 
         return $instance->newQuery()
-                        ->whereRaw($rgtCol.' - '.$lftCol.' = 1')
+                        ->whereRaw($rgtCol . ' - ' . $lftCol . ' = 1')
                         ->orderBy($instance->getQualifiedOrderColumnName());
     }
 
@@ -457,7 +458,7 @@ trait NestedSet {
 
         return $instance->newQuery()
                         ->whereNotNull($instance->getParentColumnName())
-                        ->whereRaw($rgtCol.' - '.$lftCol.' != 1')
+                        ->whereRaw($rgtCol . ' - ' . $lftCol . ' != 1')
                         ->orderBy($instance->getQualifiedOrderColumnName());
     }
 
@@ -488,6 +489,7 @@ trait NestedSet {
      * Maps the provided tree structure into the database.
      *
      * @param   array|\Illuminate\Support\Contracts\ArrayableInterface
+     * @param mixed $nodeList
      *
      * @return bool
      */
@@ -500,6 +502,9 @@ trait NestedSet {
      * Query scope which extracts a certain node object from the current query
      * expression.
      *
+     * @param mixed $query
+     * @param mixed $node
+     *
      * @return \Illuminate\Database\Query\Builder
      */
     public function scopeWithoutNode($query, $node)
@@ -509,6 +514,8 @@ trait NestedSet {
 
     /**
      * Extracts current node (self) from current query expression.
+     *
+     * @param mixed $query
      *
      * @return \Illuminate\Database\Query\Builder
      */
@@ -520,6 +527,8 @@ trait NestedSet {
     /**
      * Extracts first root (from the current node p-o-v) from current query
      * expression.
+     *
+     * @param mixed $query
      *
      * @return \Illuminate\Database\Query\Builder
      */
@@ -533,13 +542,15 @@ trait NestedSet {
      *
      * @param   query   \Illuminate\Database\Query\Builder
      * @param   limit   integer
+     * @param mixed $query
+     * @param mixed $limit
      *
      * @return \Illuminate\Database\Query\Builder
      */
     public function scopeLimitDepth($query, $limit)
     {
-        $depth = $this->exists ? $this->getDepth() : $this->getLevel();
-        $max = $depth + $limit;
+        $depth  = $this->exists ? $this->getDepth() : $this->getLevel();
+        $max    = $depth + $limit;
         $scopes = [$depth, $max];
 
         return $query->whereBetween($this->getDepthColumnName(), [min($scopes), max($scopes)]);
@@ -552,7 +563,7 @@ trait NestedSet {
      */
     public function isRoot()
     {
-        return ! $this->getParentId();
+        return !$this->getParentId();
     }
 
     /**
@@ -572,7 +583,7 @@ trait NestedSet {
      */
     public function isTrunk()
     {
-        return ! $this->isRoot() && ! $this->isLeaf();
+        return !$this->isRoot() && !$this->isLeaf();
     }
 
     /**
@@ -582,7 +593,7 @@ trait NestedSet {
      */
     public function isChild()
     {
-        return ! $this->isRoot();
+        return !$this->isRoot();
     }
 
     /**
@@ -594,15 +605,14 @@ trait NestedSet {
     {
         if ($this->exists) {
             return $this->ancestorsAndSelf()->whereNull($this->getParentColumnName())->first();
-        } else {
-            $parentId = $this->getParentId();
-
-            if (! $parentId && $currentParent = static::find($parentId)) {
-                return $currentParent->getRoot();
-            } else {
-                return $this;
-            }
         }
+        $parentId = $this->getParentId();
+
+        if (!$parentId && $currentParent = static::find($parentId)) {
+            return $currentParent->getRoot();
+        }
+
+        return $this;
     }
 
     /**
@@ -738,7 +748,7 @@ trait NestedSet {
         $lftCol = $grammar->wrap($this->getQualifiedLeftColumnName());
 
         return $this->descendants()
-                    ->whereRaw($rgtCol.' - '.$lftCol.' = 1');
+                    ->whereRaw($rgtCol . ' - ' . $lftCol . ' = 1');
     }
 
     /**
@@ -768,7 +778,7 @@ trait NestedSet {
 
         return $this->descendants()
                     ->whereNotNull($this->getQualifiedParentColumnName())
-                    ->whereRaw($rgtCol.' - '.$lftCol.' != 1');
+                    ->whereRaw($rgtCol . ' - ' . $lftCol . ' != 1');
     }
 
     /**
@@ -809,8 +819,8 @@ trait NestedSet {
         }
 
         $arguments = func_get_args();
-        $limit = intval(array_shift($arguments));
-        $columns = array_shift($arguments) ?: ['*'];
+        $limit     = intval(array_shift($arguments));
+        $columns   = array_shift($arguments) ?: ['*'];
 
         return $this->descendantsAndSelf()->limitDepth($limit)->get($columns);
     }
@@ -852,7 +862,7 @@ trait NestedSet {
 
         $arguments = func_get_args();
 
-        $limit = intval(array_shift($arguments));
+        $limit   = intval(array_shift($arguments));
         $columns = array_shift($arguments) ?: ['*'];
 
         return $this->descendants()->limitDepth($limit)->get($columns);
@@ -888,7 +898,7 @@ trait NestedSet {
      */
     public function getLevel()
     {
-        if (! $this->getParentId()) {
+        if (!$this->getParentId()) {
             return 0;
         }
 
@@ -899,6 +909,7 @@ trait NestedSet {
      * Returns true if node is a direct descendant of $other.
      *
      * @param NestedSet
+     * @param mixed $other
      *
      * @return bool
      */
@@ -913,6 +924,7 @@ trait NestedSet {
      * Returns true if node is a descendant.
      *
      * @param NestedSet
+     * @param mixed $other
      *
      * @return bool
      */
@@ -928,6 +940,7 @@ trait NestedSet {
      * Returns true if node is self or a descendant.
      *
      * @param NestedSet
+     * @param mixed $other
      *
      * @return bool
      */
@@ -943,6 +956,7 @@ trait NestedSet {
      * Returns true if node is an ancestor.
      *
      * @param NestedSet
+     * @param mixed $other
      *
      * @return bool
      */
@@ -958,6 +972,7 @@ trait NestedSet {
      * Returns true if node is self or an ancestor.
      *
      * @param NestedSet
+     * @param mixed $other
      *
      * @return bool
      */
@@ -1018,6 +1033,8 @@ trait NestedSet {
     /**
      * Move to the node to the left of ...
      *
+     * @param mixed $node
+     *
      * @return \Baum\Node
      */
     public function moveToLeftOf($node)
@@ -1027,6 +1044,8 @@ trait NestedSet {
 
     /**
      * Move to the node to the right of ...
+     *
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -1038,6 +1057,8 @@ trait NestedSet {
     /**
      * Alias for moveToRightOf.
      *
+     * @param mixed $node
+     *
      * @return \Baum\Node
      */
     public function makeNextSiblingOf($node)
@@ -1047,6 +1068,8 @@ trait NestedSet {
 
     /**
      * Alias for moveToRightOf.
+     *
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -1058,6 +1081,8 @@ trait NestedSet {
     /**
      * Alias for moveToLeftOf.
      *
+     * @param mixed $node
+     *
      * @return \Baum\Node
      */
     public function makePreviousSiblingOf($node)
@@ -1067,6 +1092,8 @@ trait NestedSet {
 
     /**
      * Make the node a child of ...
+     *
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -1080,7 +1107,8 @@ trait NestedSet {
      *
      * @param [type] $node [description]
      */
-    public function addChild($node) {
+    public function addChild($node)
+    {
         $parentIdKey = $this->getparentColumnName();
 
         $node->$parentIdKey = $this->getKey();
@@ -1090,6 +1118,8 @@ trait NestedSet {
 
     /**
      * Make the node the first child of ...
+     *
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -1104,6 +1134,8 @@ trait NestedSet {
 
     /**
      * Make the node the last child of ...
+     *
+     * @param mixed $node
      *
      * @return \Baum\Node
      */
@@ -1126,6 +1158,7 @@ trait NestedSet {
      * Equals?
      *
      * @param \Baum\Node
+     * @param mixed $node
      *
      * @return bool
      */
@@ -1138,6 +1171,7 @@ trait NestedSet {
      * Checkes if the given node is in the same scope as the current one.
      *
      * @param \Baum\Node
+     * @param mixed $other
      *
      * @return bool
      */
@@ -1157,6 +1191,7 @@ trait NestedSet {
      * its in the subtree defined by the left and right indices.
      *
      * @param \Baum\Node
+     * @param mixed $node
      *
      * @return bool
      */
@@ -1179,7 +1214,7 @@ trait NestedSet {
         $withHighestRight = $this->newNestedSetQuery()->reOrderBy($this->getRightColumnName(), 'desc')->take(1)->sharedLock()->first();
 
         $maxRgt = 0;
-        if (! is_null($withHighestRight)) {
+        if (!is_null($withHighestRight)) {
             $maxRgt = $withHighestRight->getRight();
         }
 
@@ -1192,7 +1227,8 @@ trait NestedSet {
      *
      * @return void
      */
-    public function setGuards() {
+    public function setGuards()
+    {
         $this->guarded = array_merge(static::$_guarded, $this->guarded);
     }
 
@@ -1219,12 +1255,11 @@ trait NestedSet {
             return;
         }
 
-        if (! $newParentId) {
+        if (!$newParentId) {
             return $this->makeRoot();
-        } else {
-            if ($oldParentId != $newParentId) {
-                return $this->makeChildOf($newParentId);
-            }
+        }
+        if ($oldParentId != $newParentId) {
+            return $this->makeChildOf($newParentId);
         }
     }
 
@@ -1261,14 +1296,14 @@ trait NestedSet {
 
             $self->descendantsAndSelf()->select($self->getKeyName())->lockForUpdate()->get();
 
-            $oldDepth = ! is_null($self->getDepth()) ? $self->getDepth() : 0;
+            $oldDepth = !is_null($self->getDepth()) ? $self->getDepth() : 0;
             $newDepth = $self->getLevel();
 
             $self->newNestedSetQuery()->where($self->getKeyName(), '=', $self->getKey())->update([$self->getDepthColumnName() => $newDepth]);
             $self->setAttribute($self->getDepthColumnName(), $newDepth);
 
             $diff = $newDepth - $oldDepth;
-            if (! $self->isLeaf() && $diff != 0) {
+            if (!$self->isLeaf() && $diff != 0) {
                 $self->descendants()->increment($self->getDepthColumnName(), $diff);
             }
         });
@@ -1308,7 +1343,7 @@ trait NestedSet {
             // Prune children, optionally one by one to file deleting / deleted events
             $query = $self->newNestedSetQuery()->where($lftCol, '>', $lft)->where($rgtCol, '<', $rgt);
 
-            if (! $this->fireDescendantDeleteEvents) {
+            if (!$this->fireDescendantDeleteEvents) {
                 $query->delete();
             } else {
                 $query->each(function ($node) {
@@ -1378,13 +1413,18 @@ trait NestedSet {
     /**
      * Return an key-value array indicating the node's depth with $seperator.
      *
+     * @param mixed      $column
+     * @param null|mixed $key
+     * @param mixed      $seperator
+     * @param mixed      $symbol
+     *
      * @return array
      */
     public static function getNestedList($column, $key = null, $seperator = ' ', $symbol = '')
     {
         $instance = new static();
 
-        $key = $key ?: $instance->getKeyName();
+        $key         = $key ?: $instance->getKeyName();
         $depthColumn = $instance->getDepthColumnName();
 
         $nodes = $instance->newNestedSetQuery()->get()->toArray();
@@ -1392,7 +1432,7 @@ trait NestedSet {
         return array_combine(array_map(function ($node) use ($key) {
             return $node[$key];
         }, $nodes), array_map(function ($node) use ($seperator, $depthColumn, $column, $symbol) {
-            return str_repeat($seperator, $node[$depthColumn]).$symbol.$node[$column];
+            return str_repeat($seperator, $node[$depthColumn]) . $symbol . $node[$column];
         }, $nodes));
     }
 
@@ -1402,6 +1442,7 @@ trait NestedSet {
      * descendancy subtree of the current node instance.
      *
      * @param   array|\Illuminate\Support\Contracts\ArrayableInterface
+     * @param mixed $nodeList
      *
      * @return bool
      */
@@ -1456,7 +1497,7 @@ trait NestedSet {
     {
         // Traverse back up the ancestry chain and add to the nesting level count
         while ($parent = $node->parent()->first()) {
-            $nesting++;
+            ++$nesting;
             $node = $parent;
         }
 
@@ -1480,7 +1521,7 @@ trait NestedSet {
 
             // Copy deleted_at attribute from current node to stop it
             // being un-deleted when reloaded
-            $freshAttributes = $fresh->getAttributes();
+            $freshAttributes   = $fresh->getAttributes();
             $currentAttributes = $this->getAttributes();
             if (isset($currentAttributes['deleted_at'])) {
                 $freshAttributes['deleted_at'] = $currentAttributes['deleted_at'];
@@ -1511,6 +1552,7 @@ trait NestedSet {
      * Register a moving model event with the dispatcher.
      *
      * @param Closure|string $callback
+     * @param mixed          $priority
      *
      * @return void
      */
@@ -1523,6 +1565,7 @@ trait NestedSet {
      * Register a moved model event with the dispatcher.
      *
      * @param Closure|string $callback
+     * @param mixed          $priority
      *
      * @return void
      */
@@ -1589,6 +1632,4 @@ trait NestedSet {
     {
         return with(new static())->areSoftDeletesEnabled();
     }
-
-
 }

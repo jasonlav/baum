@@ -70,6 +70,9 @@ class SetBuilder
     /**
      * Recompute left and right index bounds for the specified node and its
      * children (recursive call). Fill the depth column too.
+     *
+     * @param mixed $node
+     * @param mixed $depth
      */
     public function rebuildBounds($node, $depth = 0)
     {
@@ -150,7 +153,7 @@ class SetBuilder
         $output = [];
 
         foreach ($attributes as $fld => $value) {
-            $output[] = $this->qualify($fld).'='.(is_null($value) ? 'NULL' : $value);
+            $output[] = $this->qualify($fld) . '=' . (is_null($value) ? 'NULL' : $value);
         }
 
         // NOTE: Maybe an md5 or something would be better. Should be unique though.
@@ -178,10 +181,12 @@ class SetBuilder
     /**
      * Get the fully qualified value for the specified column.
      *
+     * @param mixed $column
+     *
      * @return string
      */
     protected function qualify($column)
     {
-        return $this->node->getTable().'.'.$column;
+        return $this->node->getTable() . '.' . $column;
     }
 }

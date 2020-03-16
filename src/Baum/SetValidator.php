@@ -41,7 +41,7 @@ class SetValidator
      */
     public function fails()
     {
-        return ! $this->passes();
+        return !$this->passes();
     }
 
     /**
@@ -54,17 +54,17 @@ class SetValidator
     protected function validateBounds()
     {
         $connection = $this->node->getConnection();
-        $grammar = $connection->getQueryGrammar();
+        $grammar    = $connection->getQueryGrammar();
 
-        $tableName = $this->node->getTable();
+        $tableName      = $this->node->getTable();
         $primaryKeyName = $this->node->getKeyName();
-        $parentColumn = $this->node->getQualifiedParentColumnName();
+        $parentColumn   = $this->node->getQualifiedParentColumnName();
 
         $lftCol = $grammar->wrap($this->node->getLeftColumnName());
         $rgtCol = $grammar->wrap($this->node->getRightColumnName());
 
-        $qualifiedLftCol = $grammar->wrap($this->node->getQualifiedLeftColumnName());
-        $qualifiedRgtCol = $grammar->wrap($this->node->getQualifiedRightColumnName());
+        $qualifiedLftCol    = $grammar->wrap($this->node->getQualifiedLeftColumnName());
+        $qualifiedRgtCol    = $grammar->wrap($this->node->getQualifiedRightColumnName());
         $qualifiedParentCol = $grammar->wrap($this->node->getQualifiedParentColumnName());
 
         $whereStm = "($qualifiedLftCol IS NULL OR
@@ -75,8 +75,8 @@ class SetValidator
           $qualifiedRgtCol >= parent.$rgtCol)))";
 
         $query = $this->node->newQuery()
-      ->join($connection->raw($grammar->wrapTable($tableName).' parent'),
-             $parentColumn, '=', $connection->raw('parent.'.$grammar->wrap($primaryKeyName)),
+      ->join($connection->raw($grammar->wrapTable($tableName) . ' parent'),
+             $parentColumn, '=', $connection->raw('parent.' . $grammar->wrap($primaryKeyName)),
              'left outer')
       ->whereRaw($whereStm);
 
@@ -91,8 +91,8 @@ class SetValidator
     protected function validateDuplicates()
     {
         return
-      ! $this->duplicatesExistForColumn($this->node->getQualifiedLeftColumnName()) &&
-      ! $this->duplicatesExistForColumn($this->node->getQualifiedRightColumnName());
+      !$this->duplicatesExistForColumn($this->node->getQualifiedLeftColumnName()) &&
+      !$this->duplicatesExistForColumn($this->node->getQualifiedRightColumnName());
     }
 
     /**
@@ -125,7 +125,7 @@ class SetValidator
     protected function duplicatesExistForColumn($column)
     {
         $connection = $this->node->getConnection();
-        $grammar = $connection->getQueryGrammar();
+        $grammar    = $connection->getQueryGrammar();
 
         $columns = array_merge($this->node->getQualifiedScopedColumns(), [$column]);
 
@@ -145,7 +145,7 @@ class SetValidator
 
         $result = $query->first();
 
-        return ! is_null($result);
+        return !is_null($result);
     }
 
     /**
@@ -161,14 +161,14 @@ class SetValidator
         $left = $right = 0;
 
         foreach ($roots as $root) {
-            $rootLeft = $root->getLeft();
+            $rootLeft  = $root->getLeft();
             $rootRight = $root->getRight();
 
-            if (! ($rootLeft > $left && $rootRight > $right)) {
+            if (!($rootLeft > $left && $rootRight > $right)) {
                 return false;
             }
 
-            $left = $rootLeft;
+            $left  = $rootLeft;
             $right = $rootRight;
         }
 
@@ -188,7 +188,7 @@ class SetValidator
         foreach ($this->groupRootsByScope($roots) as $scope => $groupedRoots) {
             $valid = $this->isEachRootValid($groupedRoots);
 
-            if (! $valid) {
+            if (!$valid) {
                 return false;
             }
         }
@@ -212,7 +212,7 @@ class SetValidator
         foreach ($roots as $root) {
             $key = $this->keyForScope($root);
 
-            if (! isset($rootsGroupedByScope[$key])) {
+            if (!isset($rootsGroupedByScope[$key])) {
                 $rootsGroupedByScope[$key] = [];
             }
 

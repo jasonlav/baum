@@ -7,7 +7,8 @@ class BaumTestCase extends TestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -89,20 +90,20 @@ class BaumTestCase extends TestCase
 
             $number = $count++;
 
-            if (! isset($queries[$result])) {
+            if (!isset($queries[$result])) {
                 $queries[$result] = 1;
             } else {
-                $queries[$result]++;
+                ++$queries[$result];
             }
 
             $ordinal = function ($number) {
                 $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
 
                 if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
-                    return $number.'th';
-                } else {
-                    return $number.$ends[$number % 10];
+                    return $number . 'th';
                 }
+
+                return $number . $ends[$number % 10];
             };
 
             $queryRepeatCount = '';
@@ -112,7 +113,7 @@ class BaumTestCase extends TestCase
             }
 
             echo "\n/* Query $number */";
-            echo "\n/*".str_repeat('-', 256).'*/';
+            echo "\n/*" . str_repeat('-', 256) . '*/';
             echo "\n{$result}";
             // echo "\n- {$query->time}mS{$queryRepeatCount}\n";
 
@@ -121,11 +122,11 @@ class BaumTestCase extends TestCase
             array_walk($backtrace, function ($a, $b) use (&$result) {
                 if (isset($a['file'])) {
                     if (strpos($a['file'], 'vendor') === false) {
-                        if (! isset($a['class'])) {
+                        if (!isset($a['class'])) {
                             $a['class'] = '';
                         }
 
-                        $function = sprintf('%-50s', $a['class'].'#'.$a['function']);
+                        $function = sprintf('%-50s', $a['class'] . '#' . $a['function']);
                         $string = "$function | {$a['file']}:{$a['line']}";
                         array_push($result, $string);
                     }

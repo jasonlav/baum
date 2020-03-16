@@ -35,7 +35,7 @@ class MigrationGenerator extends Generator
      */
     protected function getMigrationName($name)
     {
-        return 'create_'.$this->tableize($name).'_table';
+        return 'create_' . $this->tableize($name) . '_table';
     }
 
     /**
@@ -58,7 +58,7 @@ class MigrationGenerator extends Generator
      */
     protected function getPath($name, $path)
     {
-        return $path.'/'.$this->getDatePrefix().'_'.$this->getMigrationName($name).'.php';
+        return $path . '/' . $this->getDatePrefix() . '_' . $this->getMigrationName($name) . '.php';
     }
 
     /**
