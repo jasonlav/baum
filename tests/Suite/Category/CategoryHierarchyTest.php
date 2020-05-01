@@ -2,24 +2,15 @@
 
 namespace Baum\Tests\Suite\Category;
 
-use Baum\Tests\Suite\Models\Category;
-use Baum\Tests\Suite\Models\ScopedCategory;
-use Baum\Tests\Suite\Models\MultiScopedCategory;
-use Baum\Tests\Suite\Models\OrderedCategory;
-use Baum\Tests\Suite\Models\OrderedScopedCategory;
-use Baum\Tests\Suite\Models\SoftCategory;
 use Baum\Seeder\CategorySeeder;
-use Baum\Seeder\ClusterSeeder;
+use Baum\Tests\Suite\Models\Category;
 //use Baum\Tests\Suite\Support\Cast;
 use Baum\Tests\Suite\Support\MyTrait;
 
-
-
 class CategoryHierarchyTest extends CategoryAbstract
 {
+    use MyTrait;
 
-	use MyTrait;
-	
     public function testAllStatic()
     {
         $results = Category::all();
@@ -684,19 +675,19 @@ class CategoryHierarchyTest extends CategoryAbstract
         $expectedSubtreeD = ['D' => null];
 
         // Perform assertions
-		$wholeTree = $this->hierarchy(Category::all()->toHierarchy()->toArray());
+        $wholeTree = $this->hierarchy(Category::all()->toHierarchy()->toArray());
         $this->assertArraysAreEqual($expectedWholeTree, $wholeTree);
 
-		$subtreeA = $this->hierarchy($this->categories('A')->getDescendantsAndSelf()->toHierarchy()->toArray());
+        $subtreeA = $this->hierarchy($this->categories('A')->getDescendantsAndSelf()->toHierarchy()->toArray());
         $this->assertArraysAreEqual($expectedSubtreeA, $subtreeA);
 
-		$subtreeB = $this->hierarchy($this->categories('B')->getDescendantsAndSelf()->toHierarchy()->toArray());
+        $subtreeB = $this->hierarchy($this->categories('B')->getDescendantsAndSelf()->toHierarchy()->toArray());
         $this->assertArraysAreEqual($expectedSubtreeB, $subtreeB);
 
-		$subtreeC = $this->hierarchy($this->categories('C')->getDescendants()->toHierarchy()->toArray());
+        $subtreeC = $this->hierarchy($this->categories('C')->getDescendants()->toHierarchy()->toArray());
         $this->assertArraysAreEqual($expectedSubtreeC, $subtreeC);
 
-		$subtreeD = $this->hierarchy($this->categories('D')->getDescendantsAndSelf()->toHierarchy()->toArray());
+        $subtreeD = $this->hierarchy($this->categories('D')->getDescendantsAndSelf()->toHierarchy()->toArray());
         $this->assertArraysAreEqual($expectedSubtreeD, $subtreeD);
 
         $this->assertTrue($this->categories('D')->getDescendants()->toHierarchy()->isEmpty());
@@ -721,7 +712,6 @@ class CategoryHierarchyTest extends CategoryAbstract
 
         $parent->reload();
         $this->assertArraysAreEqual($expected, $this->hierarchy($parent->getDescendantsAndSelf()->toHierarchy()->toArray()));
-        
     }
 
     public function testGetNestedList()

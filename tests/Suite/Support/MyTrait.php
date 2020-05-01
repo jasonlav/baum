@@ -4,7 +4,6 @@ namespace Baum\Tests\Suite\Support;
 
 trait MyTrait
 {
-
     public function stub($data)
     {
         return $data;
@@ -51,5 +50,4 @@ trait MyTrait
 
         return $this->assertEquals($ex, $ac, $message);
     }
-
 }

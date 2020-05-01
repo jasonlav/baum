@@ -4,7 +4,6 @@ namespace Baum\Tests\Suite\Category;
 
 use Baum\Tests\Suite\Models\Category;
 
-
 class CategoryTreeRebuildingTest extends CategoryAbstract
 {
     public function testRebuild()
