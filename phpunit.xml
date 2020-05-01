@@ -16,6 +16,9 @@
         <testsuite name="Basic Baum Test">
             <directory>tests/Basic</directory>
         </testsuite>
+        <testsuite name="Baum Test Suite">
+            <file>tests/Suite/Category/CategoryHierarchyTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>

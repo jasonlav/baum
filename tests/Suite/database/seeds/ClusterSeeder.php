@@ -1,5 +1,7 @@
 <?php
 
+namespace Baum\Seeder;
+
 class ClusterSeeder
 {
     public function run()

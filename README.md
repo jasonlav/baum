@@ -1,8 +1,8 @@
-# Baum 2.0.0 
+# Baum 2.0.01
 
 [![this](https://img.shields.io/badge/warning-development%20build-red)]()
 [![Build Status](https://travis-ci.org/gazsp/baum.svg?branch=2.0.1)](https://travis-ci.org/gazsp/baum)
-[![Coverage Status](https://coveralls.io/repos/github/gazsp/baum/badge.svg?branch=2.0.1)](https://coveralls.io/github/gazsp/baum?branch=2.0.0)
+[![Coverage Status](https://coveralls.io/repos/github/gazsp/baum/badge.svg?branch=2.0.1)](https://coveralls.io/github/gazsp/baum?branch=2.0.1)
 [![StyleCI](https://github.styleci.io/repos/47506280/shield?branch=2.0.1&style=flat)](https://github.styleci.io/repos/47506280)
 
 **THIS IS A DEVELOPMENT BUILD**

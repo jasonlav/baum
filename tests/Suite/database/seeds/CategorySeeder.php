@@ -1,5 +1,14 @@
 <?php
 
+namespace Baum\Seeder;
+
+use Baum\Tests\Suite\Models\Category;
+use Baum\Tests\Suite\Models\ScopedCategory;
+use Baum\Tests\Suite\Models\MultiScopedCategory;
+use Baum\Tests\Suite\Models\OrderedCategory;
+use Baum\Tests\Suite\Models\OrderedScopedCategory;
+use Baum\Tests\Suite\Models\SoftCategory;
+
 class CategorySeeder
 {
     public function run()
@@ -15,11 +24,11 @@ class CategorySeeder
 
         Category::reguard();
 
-        if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 7');
-        }
+//         if (DB::connection()->getDriverName() === 'pgsql') {
+//             $tablePrefix = DB::connection()->getTablePrefix();
+//             $sequenceName = $tablePrefix.'categories_id_seq';
+//             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 7');
+//         }
     }
 
     public function nestUptoAt($node, $levels = 10, $attrs = [])
@@ -55,11 +64,11 @@ class ScopedCategorySeeder
 
         ScopedCategory::reguard();
 
-        if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 11');
-        }
+//         if (DB::connection()->getDriverName() === 'pgsql') {
+//             $tablePrefix = DB::connection()->getTablePrefix();
+//             $sequenceName = $tablePrefix.'categories_id_seq';
+//             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 11');
+//         }
     }
 }
 
@@ -92,11 +101,11 @@ class MultiScopedCategorySeeder
 
         MultiScopedCategory::reguard();
 
-        if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 21');
-        }
+//         if (DB::connection()->getDriverName() === 'pgsql') {
+//             $tablePrefix = DB::connection()->getTablePrefix();
+//             $sequenceName = $tablePrefix.'categories_id_seq';
+//             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 21');
+//         }
     }
 }
 
@@ -115,11 +124,11 @@ class OrderedCategorySeeder
 
         OrderedCategory::reguard();
 
-        if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 7');
-        }
+//         if (DB::connection()->getDriverName() === 'pgsql') {
+//             $tablePrefix = DB::connection()->getTablePrefix();
+//             $sequenceName = $tablePrefix.'categories_id_seq';
+//             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 7');
+//         }
     }
 }
 
@@ -143,10 +152,10 @@ class OrderedScopedCategorySeeder
 
         OrderedScopedCategory::reguard();
 
-        if (DB::connection()->getDriverName() === 'pgsql') {
-            $tablePrefix = DB::connection()->getTablePrefix();
-            $sequenceName = $tablePrefix.'categories_id_seq';
-            DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 11');
-        }
+//         if (DB::connection()->getDriverName() === 'pgsql') {
+//             $tablePrefix = DB::connection()->getTablePrefix();
+//             $sequenceName = $tablePrefix.'categories_id_seq';
+//             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 11');
+//         }
     }
 }

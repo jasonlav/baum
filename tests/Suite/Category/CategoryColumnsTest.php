@@ -1,7 +1,24 @@
 <?php
 
-class CategoryColumnsTest extends CategoryTestCase
+namespace Baum\Tests\Suite\Category;
+
+use Baum\Tests\Suite\Models\Category;
+use Baum\Tests\Suite\Models\ScopedCategory;
+use Baum\Tests\Suite\Models\MultiScopedCategory;
+use Baum\Tests\Suite\Models\OrderedCategory;
+use Baum\Tests\Suite\Models\OrderedScopedCategory;
+use Baum\Tests\Suite\Models\SoftCategory;
+use Baum\Seeder\CategorySeeder;
+use Baum\Seeder\ClusterSeeder;
+//use Baum\Tests\Suite\Support\Testable;
+//use Baum\Tests\Suite\Support\Cast;
+
+
+class CategoryColumnsTest extends CategoryAbstract
 {
+
+	//use Cast, Testable;
+
     public function testGetParentColumnName()
     {
         $category = new Category();
@@ -102,7 +119,7 @@ class CategoryColumnsTest extends CategoryTestCase
 
     public function testGetOrderNonDefault()
     {
-        $category = $this->categories('Root 1', 'OrderedCategory');
+        $category = $this->categories('Root 1', OrderedCategory::class);
 
         $this->assertEquals($category->getOrder(), 'Root 1');
     }

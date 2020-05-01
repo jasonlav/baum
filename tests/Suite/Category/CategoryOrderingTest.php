@@ -1,6 +1,11 @@
 <?php
 
-class CategoryOrderingTest extends OrderedCategoryTestCase
+namespace Baum\Tests\Suite\Category;
+
+use Baum\Tests\Suite\Models\Category;
+
+
+class CategoryOrderingTest extends CategoryAbstract
 {
     public function testAllStaticWithCustomOrder()
     {

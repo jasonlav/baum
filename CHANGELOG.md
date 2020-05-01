@@ -1,3 +1,14 @@
+## 2.0.1
+_May 1 2020_
+
+* Reworking unit tests.
+* PHP 7.1 Deprecated
+* Laravel 5.5 Deprecated - Due to dependency issue with carbon and PHP7.1
+
+## 2.0.0
+_Mar 16 2020_
+
+* Starting work to move feature/2.0 to master.
 
 ## 1.1.5
 _Mar 27 2015_

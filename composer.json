@@ -26,7 +26,8 @@
         "illuminate/support": ">=5.8"
     },
     "require-dev": {
-        "orchestra/testbench": "^5"
+        "orchestra/testbench": "^5",
+        "phpunit/phpunit": "8.*"
     },
     "autoload": {
         "psr-0": {
@@ -38,7 +39,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Baum\\Tests\\": "tests"
+            "Baum\\Tests\\": "tests",
+            "Baum\\Seeder\\": "tests/Suite/database/seeds"
+            
         }
     },
     "extra": {
