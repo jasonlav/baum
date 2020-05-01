@@ -3,11 +3,10 @@
 namespace Baum\Seeder;
 
 use Baum\Tests\Suite\Models\Category;
-use Baum\Tests\Suite\Models\ScopedCategory;
 use Baum\Tests\Suite\Models\MultiScopedCategory;
 use Baum\Tests\Suite\Models\OrderedCategory;
 use Baum\Tests\Suite\Models\OrderedScopedCategory;
-use Baum\Tests\Suite\Models\SoftCategory;
+use Baum\Tests\Suite\Models\ScopedCategory;
 
 class CategorySeeder
 {

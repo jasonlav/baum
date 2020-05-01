@@ -6,7 +6,6 @@ use Orchestra\Testbench\TestCase;
 
 class UnitAbstract extends TestCase
 {
-
     /**
      * Setup the test environment.
      */

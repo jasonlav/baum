@@ -2,15 +2,12 @@
 
 namespace Baum\Tests\Suite\Category;
 
-use Baum\Tests\Suite\Models\Category;
-
-
 class CategoryMultiScopedTest extends CategoryAbstract
 {
 //     public function setUp()
 //     {
 //         parent::setUp();
-// 
+//
 //         with(new CategoryMigrator())->up();
 //         with(new MultiScopedCategorySeeder())->run();
 //     }

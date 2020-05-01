@@ -2,9 +2,6 @@
 
 namespace Baum\Tests\Suite\Category;
 
-use Baum\Tests\Suite\Models\Category;
-
-
 // class CategorySoftDeletesTest extends CategoryAbstract
 // {
 //     public function testReload()

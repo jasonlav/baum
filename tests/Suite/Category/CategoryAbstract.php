@@ -2,17 +2,11 @@
 
 namespace Baum\Tests\Suite\Category;
 
-use Baum\Tests\Suite\UnitAbstract;
 use Baum\Tests\Suite\Models\Category;
-use Baum\Tests\Suite\Models\ScopedCategory;
-use Baum\Tests\Suite\Models\MultiScopedCategory;
-use Baum\Tests\Suite\Models\OrderedCategory;
-use Baum\Tests\Suite\Models\OrderedScopedCategory;
-use Baum\Tests\Suite\Models\SoftCategory;
+use Baum\Tests\Suite\UnitAbstract;
 
 class CategoryAbstract extends UnitAbstract
 {
-
     /**
      * Setup the test environment.
      */
@@ -26,7 +20,7 @@ class CategoryAbstract extends UnitAbstract
     {
         return forward_static_call_array([$className, 'where'], ['name', '=', $name])->first();
     }
-    
+
     public function catagory_create()
     {
         //Category::unguard();
@@ -46,5 +40,4 @@ class CategoryAbstract extends UnitAbstract
 //             DB::connection()->statement('ALTER SEQUENCE '.$sequenceName.' RESTART WITH 7');
 //         }
     }
-
 }

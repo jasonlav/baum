@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class BaselineTest extends TestCase
 {
+    use MyTrait;
 
-	use MyTrait;
     /** @test */
     public function true_is_true()
     {
@@ -15,10 +15,8 @@ class BaselineTest extends TestCase
     }
 
     /** @test */
-	public function trait_test()
-	{
-        $this->assertTrue($this->stub());	
-	}
-
-
+    public function trait_test()
+    {
+        $this->assertTrue($this->stub());
+    }
 }

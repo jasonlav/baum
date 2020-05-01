@@ -3,8 +3,6 @@
 namespace Baum\Tests\Suite;
 
 use Orchestra\Testbench\TestCase;
-use Baum\Tests\Suite\Models\Category;
-use Baum\Tests\Suite\Models\Cluster;
 
 class BaumTestCase extends TestCase
 {
@@ -21,7 +19,7 @@ class BaumTestCase extends TestCase
 //             'database' => ':memory:',
 //             'prefix'   => '',
 //         ];
-// 
+//
 //         // $config = [
 //         //     'driver' => 'mysql',
 //         //     'host' => 'localhost',
@@ -29,12 +27,11 @@ class BaumTestCase extends TestCase
 //         //     'password' => '',
 //         //     'database' => 'baum_testing'
 //         // ];
-// 
+//
 //         // Setup database
 //         $app['config']->set('database.default', 'default');
 //         $app['config']->set('database.connections.default', $config);
 //     }
-
 
     public function assertArraysAreEqual($expected, $actual, $message = '')
     {

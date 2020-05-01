@@ -3,21 +3,16 @@
 namespace Baum\Tests\Suite\Category;
 
 use Baum\Tests\Suite\Models\Category;
-use Baum\Tests\Suite\Models\ScopedCategory;
 use Baum\Tests\Suite\Models\MultiScopedCategory;
 use Baum\Tests\Suite\Models\OrderedCategory;
-use Baum\Tests\Suite\Models\OrderedScopedCategory;
-use Baum\Tests\Suite\Models\SoftCategory;
-use Baum\Seeder\CategorySeeder;
-use Baum\Seeder\ClusterSeeder;
+use Baum\Tests\Suite\Models\ScopedCategory;
+
 //use Baum\Tests\Suite\Support\Testable;
 //use Baum\Tests\Suite\Support\Cast;
 
-
 class CategoryColumnsTest extends CategoryAbstract
 {
-
-	//use Cast, Testable;
+    //use Cast, Testable;
 
     public function testGetParentColumnName()
     {

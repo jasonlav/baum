@@ -4,7 +4,6 @@ namespace Baum\Tests\Suite\Category;
 
 use Baum\Tests\Suite\Models\Category;
 
-
 class CategoryMovementTest extends CategoryAbstract
 {
     public function testMoveLeft()

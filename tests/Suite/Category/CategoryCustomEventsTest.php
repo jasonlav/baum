@@ -5,7 +5,6 @@ namespace Baum\Tests\Suite\Category;
 use Baum\Tests\Suite\Models\Category;
 use Illuminate\Support\Facades\Event;
 
-
 class CategoryCustomEventsTest extends CategoryAbstract
 {
     public function testMovingEventFired()
