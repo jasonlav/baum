@@ -1,4 +1,4 @@
-# Baum 2.0.01
+# Baum 2.0.1
 
 [![this](https://img.shields.io/badge/warning-development%20build-red)]()
 [![Build Status](https://travis-ci.org/gazsp/baum.svg?branch=2.0.1)](https://travis-ci.org/gazsp/baum)
