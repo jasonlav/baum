@@ -9,7 +9,6 @@ $factory->define(BasicBaum::class, function (Faker $faker) {
     ];
 });
 
-
 $factory->state(BasicBaum::class, 'root', function ($faker) {
     return [
         'name' => $faker->word,
@@ -23,7 +22,6 @@ $factory->afterCreatingState(BasicBaum::class, 'root', function ($root, $faker) 
 });
 
 //creditCardNumber
-
 
 $factory->state(BasicBaum::class, 'card', function ($faker) {
     return [
