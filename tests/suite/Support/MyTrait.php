@@ -2,6 +2,8 @@
 
 namespace Baum\Tests\Suite\Support;
 
+use Illuminate\Support\Arr;
+
 trait MyTrait
 {
     public function stub($data)
@@ -27,7 +29,7 @@ trait MyTrait
             } else {
                 $preserve = is_string($preserve) ? [$preserve] : $preserve;
 
-                $current = array_only($node, $preserve);
+                $current = Arr::only($node, $preserve);
                 if (array_key_exists('children', $node)) {
                     $children = $node['children'];
 

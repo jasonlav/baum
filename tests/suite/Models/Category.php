@@ -4,6 +4,7 @@ namespace Baum\Tests\Suite\Models;
 
 use Baum\Node;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Category extends Node
 {
@@ -31,7 +32,7 @@ class Category extends Node
             } else {
                 $preserve = is_string($preserve) ? [$preserve] : $preserve;
 
-                $current = array_only($node, $preserve);
+                $current = Arr::only($node, $preserve);
                 if (array_key_exists('children', $node)) {
                     $children = $node['children'];
 

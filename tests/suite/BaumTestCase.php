@@ -3,6 +3,7 @@
 namespace Baum\Tests\Suite;
 
 use Orchestra\Testbench\TestCase;
+use Illuminate\Support\Arr;
 
 class BaumTestCase extends TestCase
 {
@@ -51,8 +52,8 @@ class BaumTestCase extends TestCase
             $b = $b->getAttributes();
         }
 
-        $a = array_only($a, ['id', 'lft', 'rgt', 'name', 'parent_id']);
-        $b = array_only($b, ['id', 'lft', 'rgt', 'name', 'parent_id']);
+        $a = Arr::only($a, ['id', 'lft', 'rgt', 'name', 'parent_id']);
+        $b = Arr::only($b, ['id', 'lft', 'rgt', 'name', 'parent_id']);
 
         return $this->assertArraysAreEqual($a, $b);
     }
